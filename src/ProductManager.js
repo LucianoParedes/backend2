@@ -97,6 +97,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+const PM = new ProductManager('./ruta/del/archivo.json');
+
 app.get('/', async (req, res) => {
   const products = await PM.getProducts();
   res.render('home', { products });
@@ -114,8 +116,6 @@ io.on('connection', (socket) => {
     console.log('Usuario desconectado');
   });
 });
-
-const PM = new ProductManager('ruta/del/archivo.json');
 
 (async () => {
   await PM.addProduct(
