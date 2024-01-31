@@ -1,10 +1,21 @@
 const express = require('express');
 const fs = require('fs/promises');
+const productRoutes = require('./routes');
+
+const routerUsers = require('./routes/user.router')
 
 const app = express();
 const port = 8080;
 
 app.use(express.json());
+
+app.use(bodyParser.json());
+app.use('/api/products', productRoutes);
+const htttpServer = app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+
+const socketServer = new Server(htttpServer)
 
 const productsRouter = express.Router();
 
